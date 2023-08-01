@@ -18,7 +18,6 @@ public class Main {
         System.out.println("Uranus distance from Sun: " + uranus.getDistanceFromSun() + " million km");
         System.out.println("Neptune distance from Sun: " + neptune.getDistanceFromSun() + " million km");
 
-        // Example of getting the next planet for a given planet
         System.out.println("Next planet after Earth is: " + earth.getNextPlanet());
     }
 }

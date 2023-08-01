@@ -1,26 +1,26 @@
 enum SolarSystem {
-    MERCURY(0, 0, 2439, null),
-    VENUS(1, 108, 6051, MERCURY),
-    EARTH(2, 149, 6371, VENUS),
-    MARS(3, 228, 3389, EARTH),
-    JUPITER(4, 778, 69911, MARS),
-    SATURN(5, 1427, 58232, JUPITER),
-    URANUS(6, 2871, 25362, SATURN),
-    NEPTUNE(7, 4497, 24622, URANUS);
+    MERCURY(0, 2439, null),
+    VENUS(108, 6051, MERCURY),
+    EARTH(149, 6371, VENUS),
+    MARS(228, 3389, EARTH),
+    JUPITER(778, 69911, MARS),
+    SATURN(1427, 58232, JUPITER),
+    URANUS(2871, 25362, SATURN),
+    NEPTUNE(4497, 24622, URANUS);
 
     private int distanceFromSun;
-    private int distanceFromPrevious;
     private int radius;
     private SolarSystem previousPlanet;
     private SolarSystem nextPlanet;
 
-    SolarSystem(int prevDistance, int distanceFromSun, int radius, SolarSystem previous) {
-        this.distanceFromPrevious = prevDistance;
+    SolarSystem(int prevDistance, int radius, SolarSystem previous) {
         this.radius = radius;
-        this.distanceFromSun = distanceFromSun;
         this.previousPlanet = previous;
         if (previous != null) {
+            this.distanceFromSun = previous.distanceFromSun + prevDistance + previous.radius;
             previous.nextPlanet = this;
+        } else {
+            this.distanceFromSun = 0;
         }
     }
 
@@ -29,7 +29,10 @@ enum SolarSystem {
     }
 
     public int getDistanceFromPrevious() {
-        return distanceFromPrevious;
+        if (previousPlanet != null) {
+            return previousPlanet.radius + distanceFromSun - radius;
+        }
+        return 0;
     }
 
     public int getRadius() {
